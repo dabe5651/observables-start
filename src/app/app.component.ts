@@ -1,3 +1,4 @@
+import { UsersService } from './users.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,9 +7,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  // numbers = [1, 2, 3, 4, 5];
-  oddNumbers = [1, 3, 5];
-  evenNumbers = [2, 4, 6];
-  onlyOdd = false;
-  value = 10;
+  user1Activated = false;
+  user2Activated = false;
+
+  constructor(private UsersService: UsersService) {
+
+  }
+
+  ngOnInit() {
+    this.UsersService.userActivated.subscribe(
+      (id: number) => {
+        if (id === 1) {
+          this.user1Activated = true;
+        } else if (id === 2 ) {
+          this.user2Activated = true;
+        }
+      }
+    )
+  }
 }
